@@ -1,0 +1,1 @@
+az storage fs create --account-name "adls$suffix" --name fs1

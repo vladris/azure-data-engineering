@@ -1,0 +1,1 @@
+az storage fs file list --account-name "adls$suffix" --file-system fs1

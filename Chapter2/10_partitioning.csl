@@ -1,0 +1,5 @@
+PageViews
+| where hash(Timestamp, 2) == 0
+
+PageViews
+| where hash(Timestamp, 2) == 1

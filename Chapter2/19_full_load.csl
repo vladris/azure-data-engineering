@@ -1,0 +1,12 @@
+.create table ActiveIssues(CustomerId: long, IssueType: string, Timestamp: datetime)
+
+.create table ActiveIssuesStaging(CustomerId: long, IssueType: string, Timestamp: datetime)
+
+.ingest inline into table ActiveIssuesStaging <|
+20044,'Login issue',    datetime(2020-06-30 11:05:03),
+57403,'Refund request', datetime(2020-06-30 16:32:10),
+63911,'Login issue',    datetime(2020-06-30 19:26:42)
+
+.rename tables ActiveIssues=ActiveIssuesStaging, ActiveIssuesStaging=ActiveIssues
+
+.drop table ActiveIssuesStaging    

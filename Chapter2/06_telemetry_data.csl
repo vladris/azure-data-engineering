@@ -1,0 +1,7 @@
+.ingest inline into table PageViews <|
+57000,'/',         datetime(2020-06-30 10:01:05),
+12345,'/about/',   datetime(2020-06-30 10:06:00),
+57000,'/products/',datetime(2020-06-30 10:07:15),
+89943,'/',         datetime(2020-06-30 10:15:43),
+89943,'/products', datetime(2020-06-30 10:21:50),
+24566,'/',         datetime(2020-06-30 10:25:37)

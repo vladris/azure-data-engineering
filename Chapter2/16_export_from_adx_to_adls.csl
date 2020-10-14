@@ -1,0 +1,8 @@
+.export to csv (
+    h@"https://<Account name>.blob.core.windows.net/fs1/;<Key>"
+)
+with ( 
+    namePrefix="PageViews",
+    extension="csv"
+)
+<| PageViews

@@ -1,0 +1,4 @@
+PageViews
+| where Timestamp between (datetime(2020-06-30 10:00)..datetime(2020-06-30 10:30))
+| summarize Visits = count() by UserId
+| top 1 by Visits

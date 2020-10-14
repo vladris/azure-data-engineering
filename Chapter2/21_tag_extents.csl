@@ -1,0 +1,15 @@
+.ingest inline into table PageViews with (tags = '["drop-by:2020-06-29"]') <|
+89943,'/',         datetime(2020-06-29 11:09:45),
+89943,'/about/',   datetime(2020-06-29 11:09:52),
+89943,'/products/',datetime(2020-06-29 11:10:16),
+89943,'/',         datetime(2020-06-29 11:12:05),
+
+PageViews
+
+.show table PageViews extents
+
+.show table PageViews extents where tags has "drop-by:2020-06-29"
+
+.drop extents <| .show table PageViews extents where tags has "drop-by:2020-06-29"
+
+PageViews

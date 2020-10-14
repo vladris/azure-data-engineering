@@ -1,0 +1,1 @@
+.create table PageViews(UserId: long, Page: string, Timestamp: datetime)

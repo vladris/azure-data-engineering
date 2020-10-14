@@ -1,0 +1,1 @@
+az kusto database create --cluster-name "adx$suffix" --database-name telemetry --resource-group adx-rg --read-write-database location="Central US"    
