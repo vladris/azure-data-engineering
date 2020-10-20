@@ -1,0 +1,1 @@
+.create-merge table PageViews (UserId: long, Page: string, Timestamp: datetime) 

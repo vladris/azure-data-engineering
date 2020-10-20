@@ -1,0 +1,15 @@
+jobs:
+  - job:
+    displayName: Deploy ADX cluster
+    steps:
+      - task: AzureResourceManagerTemplateDeployment@3
+        inputs:
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: 'ARM'
+          subscriptionId: '<GUID>'
+          action: 'Create Or Update Resource Group'
+          resourceGroupName: 'adx-rg'
+          location: 'Central US'
+          templateLocation: 'Linked artifact'
+          csmFile: 'ARM/adx-rg.json'
+          deploymentMode: 'Incremental'

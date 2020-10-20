@@ -1,0 +1,73 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Clusters_adxvladris_name": {
+      "defaultValue": "adxvladris",
+      "type": "String"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2020-02-15",
+      "location": "Central US",
+      "name": "[parameters('Clusters_adxvladris_name')]",
+      "properties": {
+        "enableDiskEncryption": false,
+        "enableStreamingIngest": false,
+        "trustedExternalTenants": [
+          {
+            "value": "*"
+          }
+        ]
+      },
+      "sku": {
+        "capacity": 1,
+        "name": "Dev(No SLA)_Standard_D11_v2",
+        "tier": "Basic"
+      },
+      "type": "Microsoft.Kusto/Clusters"
+    },
+    {
+      "apiVersion": "2020-02-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Kusto/Clusters', parameters('Clusters_adxvladris_name'))]"
+      ],
+      "kind": "ReadWrite",
+      "location": "Central US",
+      "name": "[concat(parameters('Clusters_adxvladris_name'), '/telemetry')]",
+      "properties": {},
+      "type": "Microsoft.Kusto/Clusters/Databases"
+    },
+    {
+      "apiVersion": "2020-02-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Kusto/Clusters', parameters('Clusters_adxvladris_name'))]"
+      ],
+      "name": "[concat(parameters('Clusters_adxvladris_name'), '/e0bd2cb3-cb3e-4942-82a3-76e67f739905')]",
+      "properties": {
+        "principalId": "vladris@outlook.com",
+        "principalType": "User",
+        "role": "AllDatabasesAdmin",
+        "tenantId": "0b3ff2b5-20bc-4f48-9455-da8535828246"
+      },
+      "type": "Microsoft.Kusto/Clusters/PrincipalAssignments"
+    },
+    {
+      "apiVersion": "2020-02-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Kusto/Clusters/Databases', parameters('Clusters_adxvladris_name'), 'telemetry')]",
+        "[resourceId('Microsoft.Kusto/Clusters', parameters('Clusters_adxvladris_name'))]"
+      ],
+      "name": "[concat(parameters('Clusters_adxvladris_name'), '/telemetry/9a1512eb-8dd8-4af9-bf18-43a910bc40ab')]",
+      "properties": {
+        "principalId": "vladris@outlook.com",
+        "principalType": "User",
+        "role": "Admin",
+        "tenantId": "0b3ff2b5-20bc-4f48-9455-da8535828246"
+      },
+      "type": "Microsoft.Kusto/Clusters/Databases/PrincipalAssignments"
+    }
+  ],
+  "variables": {}
+}

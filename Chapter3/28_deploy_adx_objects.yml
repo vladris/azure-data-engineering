@@ -1,0 +1,20 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - ./ADX
+
+jobs:
+  - job:
+    displayName: Deploy ADX objects
+    steps:
+      - task: PublishToADX@1
+        inputs:
+          customAuth: true
+          connectedServiceName: ADX
+          targetType: filePath
+          files: '**/ADX/telemetry/**/*.csl'
+          singleCommand: true
+          kustoUrls: 'https://adx<replace with your $suffix>.centralus.kusto.windows.net:443?DatabaseName=telemetry'

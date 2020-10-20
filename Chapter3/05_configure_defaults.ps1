@@ -1,0 +1,1 @@
+az devops configure --defaults organization="https://dev.azure.com/dataengineering-$suffix" project=DE 

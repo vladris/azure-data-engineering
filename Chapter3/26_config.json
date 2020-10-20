@@ -1,0 +1,23 @@
+{
+  "authorization": {
+    "parameters": {
+      "authenticationType": "spnKey",
+      "serviceprincipalid": "<replace with $sp.appId>",
+      "serviceprincipalkey": "<replace with $sp.password>",
+      "tenantid": "<replace with $sp.tenant>"
+    },
+    "scheme": "ServicePrincipal"
+  },
+  "name": "ADX",
+  "owner": "library",
+  "serviceEndpointProjectReferences": [
+    {
+      "name": "ADX",
+      "projectReference": {
+        "name": "DE"
+      }
+    }
+  ],
+  "type": "AzureDataExplorer",
+  "url": "https://adx<replace with $suffix>.centralus.kusto.windows.net/"
+}

@@ -1,0 +1,1 @@
+az devops project create --organization "https://dev.azure.com/dataengineering-$suffix" --name DE

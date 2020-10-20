@@ -1,0 +1,3 @@
+PageViews
+| where Timestamp > startofmonth(now())
+| count

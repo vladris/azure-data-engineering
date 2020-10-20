@@ -1,0 +1,1 @@
+az devops service-endpoint update --id $serviceendpoint.id --enable-for-all

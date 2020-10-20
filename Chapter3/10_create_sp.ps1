@@ -1,0 +1,1 @@
+$sp = az ad sp create-for-rbac | ConvertFrom-Json

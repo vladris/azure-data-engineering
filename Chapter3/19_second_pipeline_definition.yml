@@ -1,0 +1,24 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - ./ARM
+
+jobs:
+  - job:
+    displayName: Deploy second ADX cluster
+    steps:
+      - task: AzureResourceManagerTemplateDeployment@3
+        inputs:
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: 'ARM'
+          subscriptionId: '<GUID>'
+          action: 'Create Or Update Resource Group'
+          resourceGroupName: 'adx-rg2'
+          location: 'Central US'
+          templateLocation: 'Linked artifact'
+          csmFile: 'ARM/adx-rg.json'
+          overrideParameters: '-Clusters_adxvladris_name adx2vladris'
+          deploymentMode: 'Incremental'
