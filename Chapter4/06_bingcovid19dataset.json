@@ -1,0 +1,13 @@
+{
+    "linkedServiceName": {
+        "referenceName": "bingcovid19",
+        "type": "LinkedServiceReference"
+    },
+    "type": "Json",
+    "typeProperties": {
+        "location": {
+            "type": "HttpServerLocation",
+            "relativeUrl": "public/curated/covid-19/bing_covid-19_data/latest/bing_covid-19_data.json"
+        }
+    }
+}

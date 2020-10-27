@@ -1,0 +1,10 @@
+{
+    "linkedServiceName": {
+        "referenceName": "adx",
+        "type": "LinkedServiceReference"
+    },
+    "type": "AzureDataExplorerTable",
+    "typeProperties": {
+        "table": "Covid19Temp"
+    }
+}

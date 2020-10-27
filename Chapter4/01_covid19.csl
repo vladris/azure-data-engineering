@@ -1,0 +1,1 @@
+.create-merge table Covid19 (id: int, updated: datetime, confirmed: int, confirmed_change: int, deaths: int, deaths_change: int, country_region: string, load_time: datetime)

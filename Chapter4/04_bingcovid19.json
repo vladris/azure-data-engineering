@@ -1,0 +1,8 @@
+{
+    "type": "HttpServer",
+    "typeProperties": {
+        "url": "https://pandemicdatalake.blob.core.windows.net/",
+        "enableServerCertificateValidation": true,
+        "authenticationType": "Anonymous"
+    }
+}

@@ -1,0 +1,26 @@
+trigger:
+  - adf_publish
+
+jobs:
+  - job:
+    displayName: Deploy ADF
+    steps:
+      - task: AzureKeyVault@1
+        inputs:
+          azureSubscription: 'ARM'
+          KeyVaultName: '<use AKV name>'
+          SecretsFilter: '*'
+          RunAsPreJob: false
+      - task: AzureResourceManagerTemplateDeployment@3
+        inputs:
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: 'ARM'
+          subscriptionId: '<use subscription ID>'
+          action: 'Create Or Update Resource Group'
+          resourceGroupName: 'prod-rg'
+          location: 'Central US'
+          templateLocation: 'Linked artifact'
+          csmFile: '<use adf$suffix>/ARMTemplateForFactory.json'
+          csmParametersFile: '<use adf$suffix>/ARMTemplateParametersForFactory.json'
+          overrideParameters: '-factoryName <use prodadf$suffix> -adx_servicePrincipalKey $(prodsppwd) -adx_properties_typeProperties_servicePrincipalId <use $prodsp.appId> -adx_properties_typeProperties_database production'
+          deploymentMode: 'Incremental'

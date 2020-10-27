@@ -1,0 +1,96 @@
+{
+    "activities": [
+        {
+            "name": "Create temp table",
+            "type": "AzureDataExplorerCommand",
+            "typeProperties": {
+                "command": ".create-merge table Covid19Temp (id: int, updated: datetime, confirmed: int, deaths: int, country_region: string, load_time: datetime)",
+                "commandTimeout": "00:20:00"
+            },
+            "linkedServiceName": {
+                "referenceName": "adx",
+                "type": "LinkedServiceReference"
+            }
+        },
+        {
+            "name": "Copy data",
+            "type": "Copy",
+            "dependsOn": [
+                {
+                    "activity": "Create temp table",
+                    "dependencyConditions": [
+                        "Succeeded"
+                    ]
+                }
+            ],
+            "typeProperties": {
+                "source": {
+                    "type": "JsonSource",
+                    "storeSettings": {
+                        "type": "HttpReadSettings",
+                        "requestMethod": "GET"
+                    },
+                    "formatSettings": {
+                        "type": "JsonReadSettings"
+                    }
+                },
+                "sink": {
+                    "type": "AzureDataExplorerSink"
+                },
+                "enableStaging": false
+            },
+            "inputs": [
+                {
+                    "referenceName": "bingcovid19dataset",
+                    "type": "DatasetReference"
+                }
+            ],
+            "outputs": [
+                {
+                    "referenceName": "adxtempcovid19dataset",
+                    "type": "DatasetReference"
+                }
+            ]
+        },
+        {
+            "name": "Swap tables",
+            "type": "AzureDataExplorerCommand",
+            "dependsOn": [
+                {
+                    "activity": "Copy data",
+                    "dependencyConditions": [
+                        "Succeeded"
+                    ]
+                }
+            ],
+            "typeProperties": {
+                "command": ".rename tables Covid19 = Covid19Temp, Covid19Temp = Covid19",
+                "commandTimeout": "00:20:00"
+            },
+            "linkedServiceName": {
+                "referenceName": "adx",
+                "type": "LinkedServiceReference"
+            }
+        },
+        {
+            "name": "Drop temp table",
+            "type": "AzureDataExplorerCommand",
+            "dependsOn": [
+                {
+                    "activity": "Swap tables",
+                    "dependencyConditions": [
+                        "Succeeded"
+                    ]
+                }
+            ],
+            "typeProperties": {
+                "command": ".drop table Covid19Temp",
+                "commandTimeout": "00:20:00"
+            },
+            "linkedServiceName": {
+                "referenceName": "adx",
+                "type": "LinkedServiceReference"
+            }
+        }
+    ]
+}
