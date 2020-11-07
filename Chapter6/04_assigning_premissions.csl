@@ -1,0 +1,7 @@
+.add database prototyping users ('aadgroup=<dsteam objectId>')
+
+.add database development users ('aadgroup=<dsteam objectId>')
+
+.add database development viewers ('aadgroup=<external objectId>')
+
+.add follower database telemetry viewers ('aadgroup=<dsteam objectId>', 'aadgroup=<external objectId>')

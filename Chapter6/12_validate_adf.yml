@@ -1,0 +1,19 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - ./ADF/*
+
+jobs:
+  - job:
+    displayName: Validate ADF pipeline
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.x'
+      - task: PythonScript@0
+        inputs:
+          workingDirectory: $(Build.SourcesDirectory) 
+          scriptPath: $(Build.SourcesDirectory)/Scripts/adf_validate.py

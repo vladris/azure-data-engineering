@@ -1,0 +1,1 @@
+.alter database prototyping policy retention '{ "SoftDeletePeriod": "30.00:00:00", "Recoverability": "Disabled" }'
