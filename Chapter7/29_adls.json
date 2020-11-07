@@ -1,0 +1,10 @@
+{
+    "name": "adls",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "type": "AzureBlobFS",
+        "typeProperties": {
+            "url": "https://adls<use $suffix>.dfs.core.windows.net"
+        }
+    }
+}

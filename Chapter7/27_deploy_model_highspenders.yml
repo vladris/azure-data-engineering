@@ -1,0 +1,8 @@
+...
+     
+     - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'ARM'
+          scriptType: 'pscore'
+          scriptLocation: 'inlineScript'
+          inlineScript: 'az storage fs file upload --file-system fs1 --path "pipelines/highspenders.id" --overwrite --source "ML/highspenders/highspenders.id" --account-name "<your ADLS account>"'

@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - ML/highspenders/*
+
+jobs:
+  - job:
+    displayName: Deploy High Spenders model
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.x'
+      - script: python -m pip install azureml-sdk
+      - task: PythonScript@0
+        inputs:
+          workingDirectory: $(Build.SourcesDirectory)/ML/highspenders
+          scriptPath: $(Build.SourcesDirectory)/ML/highspenders/pipeline.py
+        env:
+          SP_PASSWORD: $(SP_PASSWORD)
