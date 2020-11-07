@@ -1,0 +1,1 @@
+.create table Timeline (Timestamp: datetime, KeyType: string, KeyValue: string, EventType: string, EvenProperties: dynamic)

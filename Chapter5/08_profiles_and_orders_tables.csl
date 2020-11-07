@@ -1,0 +1,16 @@
+.drop tables (UserProfiles, CompanyProfiles, Orders)
+
+.set Profiles <|
+datatable (Id: int, ProfileType: string, ProfileData: dynamic) [
+    10002, 'User', dynamic({"Name": "Emma Johnson", "CreditCard": "***", "Address": "..."}),
+    10003, 'User', dynamic({"Name": "John Davis", "CreditCard": "***", "Address": "..."}),
+    10004, 'Company', dynamic({"Name": "Contoso", "AccountNumber": "***", "HQAddress": "..."}),
+    10005, 'Company', dynamic({"Name": "Northwind", "AccountNumber": "***", "HQAddress": "..."}),
+]
+
+.set Orders <|
+datatable (Id: int, Item: string, Quantity: int) [
+    10002, 'Programming with Types', 2,
+    10002, 'Practical Data Engineering on Azure', 1,
+    10004, 'Data Science Bookcamp', 10
+]

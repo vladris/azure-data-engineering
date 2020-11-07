@@ -1,0 +1,4 @@
+.create-or-alter function KeyringIngestProfileIds() {
+    Profiles
+    | project GroupId=new_guid(), KeyType='ProfileId', KeyValue=tostring(ProfileId)
+}

@@ -1,0 +1,3 @@
+Orders
+| join kind=inner UserProfiles on UserId
+| project Item, Name

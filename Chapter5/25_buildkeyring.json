@@ -1,0 +1,162 @@
+{
+    "name": "buildkeyring",
+    "properties": {
+        "activities": [
+            {
+                "name": "Create temp table",
+                "type": "AzureDataExplorerCommand",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "command": ".create table Staging_Keyring(GroupId: guid, KeyType: string, KeyValue: string)",
+                    "commandTimeout": "00:20:00"
+                },
+                "linkedServiceName": {
+                    "referenceName": "adx",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Get ingestion steps",
+                "type": "Lookup",
+                "dependsOn": [
+                    {
+                        "activity": "Create temp table",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureDataExplorerSource",
+                        "query": "KeyringIngestionSteps",
+                        "queryTimeout": "00:10:00"
+                    },
+                    "dataset": {
+                        "referenceName": "KeyringIngestionSteps",
+                        "type": "DatasetReference"
+                    },
+                    "firstRowOnly": false
+                }
+            },
+            {
+                "name": "For each keyring ingestion step",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Get ingestion steps",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('Get ingestion steps').output.value",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Ingest Id",
+                            "type": "AzureDataExplorerCommand",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "7.00:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "command": {
+                                    "value": ".append Staging_Keyring <| @{item().FunctionName}",
+                                    "type": "Expression"
+                                },
+                                "commandTimeout": "00:20:00"
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "adx",
+                                "type": "LinkedServiceReference"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Swap tables",
+                "type": "AzureDataExplorerCommand",
+                "dependsOn": [
+                    {
+                        "activity": "For each keyring ingestion step",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "command": ".rename tables Staging_Keyring=Keyring, Keyring=Staging_Keyring",
+                    "commandTimeout": "00:20:00"
+                },
+                "linkedServiceName": {
+                    "referenceName": "adx",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Drop temp table",
+                "type": "AzureDataExplorerCommand",
+                "dependsOn": [
+                    {
+                        "activity": "Swap tables",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "command": ".drop table Staging_Keyring",
+                    "commandTimeout": "00:20:00"
+                },
+                "linkedServiceName": {
+                    "referenceName": "adx",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "annotations": []
+    }
+}

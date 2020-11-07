@@ -1,0 +1,4 @@
+Orders
+| where ProfileType == 'Company'
+| join kind=inner CompanyProfiles on $left.Id == $right.CompanyId
+| project Item, HQAddress

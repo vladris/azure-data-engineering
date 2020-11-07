@@ -1,0 +1,6 @@
+.create-or-alter function KeyringIngestionSteps() {
+    datatable (FunctionName: string) [
+        'KeyringIngestProfileIds',
+        'KeyringIngestEmails'
+    ]
+}

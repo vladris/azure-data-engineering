@@ -1,0 +1,9 @@
+.append Keyring <| Customers
+| join (Keyring | where KeyType == 'ProfileId'
+    | project GroupId, ProfileId=toint(KeyValue)) on ProfileId
+| project GroupId, KeyType='CustomerId', tostring(CustomerId)
+
+.append Keyring <| Subscriptions
+| join (Keyring | where KeyType == 'CustomerId'
+    | project GroupId, CustomerId=toint(KeyValue)) on CustomerId
+| project GroupId, KeyType='SubscriptionId', tostring(SubscriptionId)

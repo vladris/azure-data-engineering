@@ -1,0 +1,4 @@
+Orders
+| join kind=inner Profiles on Id
+| where ProfileType == 'Company'
+| project Item, ProfileData['HQAddress']

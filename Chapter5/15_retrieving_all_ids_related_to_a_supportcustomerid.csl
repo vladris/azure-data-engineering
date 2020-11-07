@@ -1,0 +1,4 @@
+Keyring
+| where KeyType == 'SupportCustomerId' and KeyValue == tostring(21)
+| project GroupId
+| join kind=inner Keyring on GroupId

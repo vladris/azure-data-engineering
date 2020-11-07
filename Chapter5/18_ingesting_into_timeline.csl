@@ -1,0 +1,15 @@
+.append Timeline <| SupportTickets
+| where Status == 'Opened'
+| project Timestamp, KeyType='SupportCustomerId', KeyValue=tostring(SupportCustomerId), EventType='SupportTicketOpened', EventProperties=pack("Message", Message)
+
+.append Timeline <| SupportTickets
+| where Status == 'Closed'
+| project Timestamp, KeyType='SupportCustomerId', KeyValue=tostring(SupportCustomerId), EventType='SupportTicketClosed', EventProperties=pack("Message", Message)
+
+.append Timeline <| SubscriptionOrders
+| where Order == 'Create'
+| project Timestamp, KeyType='CustomerId', KeyValue=tostring(CustomerId), EventType='SubscriptionCreate', EventProperties=pack("SubscriptionId", SubscriptionId)
+
+.append Timeline <| SubscriptionOrders
+| where Order == 'Cancel'
+| project Timestamp, KeyType='CustomerId', KeyValue=tostring(CustomerId), EventType='SubscriptionClose', EventProperties=pack("SubscriptionId", SubscriptionId)

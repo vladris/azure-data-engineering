@@ -1,0 +1,7 @@
+.create-or-alter function KeyringIngestEmails(currentPartition: int, partitionCount: int) {
+    Profiles
+    | where hash(Email, partitionCount) == currentPartition
+    | join (Keyring | where KeyType == 'ProfileId' 
+        | project GroupId, ProfileId=toint(KeyValue)) on ProfileId
+    | project GroupId, KeyType='Email', Email
+}

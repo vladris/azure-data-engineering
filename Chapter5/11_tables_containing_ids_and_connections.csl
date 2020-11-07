@@ -1,0 +1,23 @@
+.set Profiles <|
+datatable (ProfileId: int, Email: string, CookieId: guid) [
+    10002, 'emma@hotmail.com', '657d31b9-0614-4df7-8be6-d576738a9661',
+    10003, 'oliver@hotmail.com', '0864c60d-cc36-4384-81a3-e4c1eee14fe7'
+]
+
+.set Customers <|
+datatable (CustomerId: int, ProfileId: int) [
+    1001, 10002,
+    1005, 10003
+]
+
+.set Subscriptions <|
+datatable (CustomerId: int, SubscriptionId: guid) [
+    1001, 'fd10b613-8378-4d37-b8e7-bb665999d122',
+    1005, '55979377-ed34-4911-badf-05e07755334c'
+]
+
+.set SupportCustomers <|
+datatable (SupportCustomerId: int, Email: string) [
+    21, 'emma@hotmail.com',
+    22, 'oliver@hotmail.com'
+]

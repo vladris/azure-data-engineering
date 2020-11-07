@@ -1,0 +1,6 @@
+.set UserOrders <|
+datatable (UserId: int, Name: string, CreditCard: string, BillingAddress: string, Item: string, Quantity: int) [
+    10002, 'Emma Johnson', '***', '...', 'Programming with Types', 2,
+    10002, 'Emma Johnson', '***', '...', 'Practical Data Engineering on Azure', 1,
+    10003, 'John Davis', '***', '...', 'Data Science Bookcamp', 1
+]

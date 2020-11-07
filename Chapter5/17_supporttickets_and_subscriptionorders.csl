@@ -1,0 +1,14 @@
+.set SupportTickets <|
+datatable (Timestamp: datetime, SupportCustomerId: int, TicketId: int, Status: string, Message: string) [ 
+    datetime(2020-07-01), 21, 5001, 'Opened', '...',
+    datetime(2020-07-03), 21, 5002, 'Opened', '...',
+    datetime(2020-07-04), 21, 5001, 'Updated', '...',
+    datetime(2020-07-05), 21, 5001, 'Closed', '...',
+    datetime(2020-07-19), 21, 5002, 'Closed', '...',
+]
+
+.set SubscriptionOrders <|
+datatable (Timestamp: datetime, CustomerId: int, SubscriptionId: guid, Order: string) [ 
+    datetime(2020-06-01), 1001, 'fd10b613-8378-4d37-b8e7-bb665999d122', 'Create',
+    datetime(2020-07-19), 1001, 'fd10b613-8378-4d37-b8e7-bb665999d122', 'Cancel'
+]

@@ -1,0 +1,4 @@
+.append Keyring <| SupportCustomers
+| join (Keyring | where KeyType == 'Email'
+    | project GroupId, Email = KeyValue) on Email
+| project GroupId, KeyType='SupportCustomerId', tostring(SupportCustomerId)

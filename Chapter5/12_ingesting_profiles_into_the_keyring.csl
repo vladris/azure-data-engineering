@@ -1,0 +1,14 @@
+.create table Keyring(GroupId: guid, KeyType: string, KeyValue: string)
+
+.append Keyring <| Profiles
+| project GroupId=new_guid(), KeyType='ProfileId', KeyValue=tostring(ProfileId)
+
+.append Keyring <| Profiles
+| join (Keyring | where KeyType == 'ProfileId' 
+    | project GroupId, ProfileId=toint(KeyValue)) on ProfileId
+| project GroupId, KeyType='Email', Email    #C
+
+.append Keyring <| Profiles
+| join (Keyring | where KeyType == 'ProfileId'
+    | project GroupId, ProfileId=toint(KeyValue)) on ProfileId
+| project GroupId, KeyType='CookieId', tostring(CookieId)

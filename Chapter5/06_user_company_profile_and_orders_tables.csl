@@ -1,0 +1,18 @@
+.set UserProfiles <|
+datatable (UserId: int, Name: string, CreditCard: string, BillingAddress: string) [
+    10002, 'Emma Johnson', '***', '...',
+    10003, 'John Davis', '***', '...'
+]
+
+.set CompanyProfiles <|
+datatable (CompanyId: int, Name: string, AccountNumber: string, HQAddress: string) [
+    10004, 'Contoso', '***', '...',
+    10005, 'Northwind', '***', '...'
+]
+
+.set Orders <|
+datatable (Id: int, ProfileType: string, Item: string, Quantity: int) [
+    10002, 'User', 'Programming with Types', 2,
+    10002, 'User', 'Practical Data Engineering on Azure', 1,
+    10004, 'Company', 'Data Science Bookcamp', 10
+]

@@ -1,0 +1,7 @@
+Timeline
+| where EventType == 'SubscriptionClose'
+| join kind=inner (Keyring | where KeyType == 'CustomerId') on KeyValue
+| join kind=inner (Keyring | where KeyType == 'SupportCustomerId') on GroupId
+| join kind=inner (Timeline | where EventType == 'SupportTicketOpened') on $left.KeyValue2 == $right.KeyValue
+| project Delta=(Timestamp - Timestamp1), CustomerId=KeyValue, SupportCustomerId=KeyValue2
+| where Delta < timespan(30d)

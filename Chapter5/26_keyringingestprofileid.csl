@@ -1,0 +1,5 @@
+.create-or-alter function KeyringIngestProfileIds(currentPartition: int, partitionCount: int) {
+    Profiles
+    | where hash(ProfileId, partitionCount) == currentPartition
+    | project GroupId=new_guid(), KeyType='ProfileId', KeyValue=tostring(ProfileId)
+}

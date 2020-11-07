@@ -1,0 +1,15 @@
+{
+    "name": "KeyringIngestionSteps",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "adx",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "AzureDataExplorerTable",
+        "schema": [],
+        "typeProperties": {
+            "table": "KeyringIngestionSteps"
+        }
+    }
+}

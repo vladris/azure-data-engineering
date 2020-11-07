@@ -1,0 +1,120 @@
+{
+    "name": "keyringingestionstep",
+    "properties": {
+        "activities": [
+            {
+                "name": "Set CurrentPartition",
+                "type": "SetVariable",
+                "dependsOn": [],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "CurrentPartition",
+                    "value": "0"
+                }
+            },
+            {
+                "name": "Until all partitions",
+                "type": "Until",
+                "dependsOn": [
+                    {
+                        "activity": "Set CurrentPartition",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "expression": {
+                        "value": "@equals(int(variables('CurrentPartition')), 10)",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Ingest partition",
+                            "type": "AzureDataExplorerCommand",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "7.00:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "command": {
+                                    "value": ".append Staging_Keyring <| @{pipeline().parameters.FunctionName}(int(variables('CurrentPartition')), 10)}",
+                                    "type": "Expression"
+                                },
+                                "commandTimeout": "00:20:00"
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "adx",
+                                "type": "LinkedServiceReference"
+                            }
+                        },
+                        {
+                            "name": "Set NextPartition",
+                            "type": "SetVariable",
+                            "dependsOn": [
+                                {
+                                    "activity": "Ingest partition",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "NextPartition",
+                                "value": {
+                                    "value": "@{add(int(variables('CurrentPartition')), 1)}",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Update CurrentPartition",
+                            "type": "SetVariable",
+                            "dependsOn": [
+                                {
+                                    "activity": "Set NextPartition",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "CurrentPartition",
+                                "value": {
+                                    "value": "@variables('NextPartition')",
+                                    "type": "Expression"
+                                }
+                            }
+                        }
+                    ],
+                    "timeout": "7.00:00:00"
+                }
+            }
+        ],
+        "parameters": {
+            "FunctionName": {
+                "type": "string",
+                "defaultValue": " "
+            }
+        },
+        "variables": {
+            "CurrentPartition": {
+                "type": "String",
+                "defaultValue": "0"
+            },
+            "NextPartition": {
+                "type": "String",
+                "defaultValue": "0"
+            }
+        },
+        "annotations": []
+    }
+}
