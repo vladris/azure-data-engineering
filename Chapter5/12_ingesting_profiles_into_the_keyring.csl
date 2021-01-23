@@ -6,7 +6,7 @@
 .append Keyring <| Profiles
 | join (Keyring | where KeyType == 'ProfileId' 
     | project GroupId, ProfileId=toint(KeyValue)) on ProfileId
-| project GroupId, KeyType='Email', Email    #C
+| project GroupId, KeyType='Email', Email
 
 .append Keyring <| Profiles
 | join (Keyring | where KeyType == 'ProfileId'
