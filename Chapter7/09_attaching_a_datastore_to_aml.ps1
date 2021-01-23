@@ -4,4 +4,6 @@ az ml datastore attach-adls-gen2 `
 --client-secret $sp.password `
 --tenant-id $sp.tenant `
 --file-system fs1 `
---name MLData
+--name MLData `
+--workspace-name aml `
+--resource-group aml-rg
