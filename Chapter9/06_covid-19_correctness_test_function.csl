@@ -1,0 +1,6 @@
+.create-or-alter function Covid19Correctness(testDate: datetime) {
+    Covid19
+    | where updated == testDate
+    | where isempty(country_region) or confirmed < 0 or deaths < 0
+    | summarize Result = count() == 0
+}

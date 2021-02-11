@@ -1,0 +1,3 @@
+.alter table UserProfiles
+  policy row_level_security enable
+  "UserProfiles | where current_principal_is_member_of('aadgroup=<group ID>;<tenant ID>')"

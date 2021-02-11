@@ -1,0 +1,6 @@
+.create-or-alter function Covid19CompletenessUS(testDate: datetime) {
+    Covid19
+    | where updated == testDate
+    | where country_region == "United States"
+    | summarize Result = count() == 52
+}

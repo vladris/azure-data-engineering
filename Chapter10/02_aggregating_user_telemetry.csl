@@ -1,0 +1,3 @@
+UserTelemetry
+| summarize count() by Feature
+| project Feature, UseCount=count_

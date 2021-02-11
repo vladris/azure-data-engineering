@@ -1,0 +1,5 @@
+.create-or-alter function TotalPageViews() { 
+  PageViews
+  | where Timestamp > startofmonth(now()) and UserId != 12345
+  | count
+}

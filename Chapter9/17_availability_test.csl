@@ -1,0 +1,6 @@
+.create-or-alter function Covid19Availability(testDate: datetime) {
+    Covid19
+    | where updated == testDate
+    | take 1
+    | summarize Result = count() > 0
+}

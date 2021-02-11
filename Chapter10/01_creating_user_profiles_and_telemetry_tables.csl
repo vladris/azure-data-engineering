@@ -1,0 +1,19 @@
+.create table UserProfiles(UserId: long, Name: string, CreditCard: string,
+    BillingAddress: string)
+
+.ingest inline into table UserProfiles <|
+10000,'Ava Smith','5105-1051-0510-5100','...'
+10001,'Oliver Miller','5555-5555-5555-4444','...'
+10002,'Emma Johnson','4111-1111-1111-1111','...'
+10003,'John Davis','4012-8888-8888-1881','...'
+
+.create table UserTelemetry(UserId: long, Timestamp: datetime, Feature: 
+    string)
+
+.ingest inline into table UserTelemetry <|
+10002,datetime(2020-06-30 10:01:05),'Search'
+10002,datetime(2020-06-30 10:01:10),'Auto-translate'
+10003,datetime(2020-06-30 10:05:20),'Search'
+10001,datetime(2020-06-30 10:07:11),'Help'
+10002,datetime(2020-06-30 10:07:21),'Auto-translate'
+10003,datetime(2020-06-30 10:08:03),'Save'

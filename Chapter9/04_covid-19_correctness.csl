@@ -1,0 +1,2 @@
+Covid19
+| where isempty(country_region)

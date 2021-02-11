@@ -1,0 +1,6 @@
+{
+    "kind": "KustoDatabase",
+    "properties": {
+        "kustoDatabaseResourceId": "<value of $telemetry.id>"
+    }
+}

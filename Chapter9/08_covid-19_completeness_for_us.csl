@@ -1,0 +1,4 @@
+Covid19
+| where updated == datetime(2020-02-29)
+| where country_region == "United States"
+| summarize Result = count() == 52

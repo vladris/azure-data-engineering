@@ -1,0 +1,21 @@
+{
+    "type": "availability",
+    "dataFabric": "ADX",
+    "queryParameters":
+    {
+        "cluster": "<Your cluster name>",
+        "database": "telemetry",
+        "table": "Covid19",
+        "dateColumn": "updated"
+    },
+    "executionParameters":
+    {
+        "retry": 3,
+        "timeout": "5m"
+    },
+    "schedule":
+    {
+        "time": "2020-06-01T18:30:00Z",
+        "repeat": "daily"
+    }
+}

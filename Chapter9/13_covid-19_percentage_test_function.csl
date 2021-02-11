@@ -1,0 +1,10 @@
+.create-or-alter function Covid19Anomaly(testDate: datetime) {
+    let curr = todouble(toscalar(Covid19
+        | where updated == testDate
+        | count));
+    let prev = todouble(toscalar(Covid19
+        | where updated == datetime_add("day", -1, testDate)
+        | count));
+    let diff = abs(curr - prev) * 100 / ((prev + curr) / 2);
+    print Result = diff < 5
+}

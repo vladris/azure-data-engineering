@@ -1,0 +1,4 @@
+let salt=123456;
+UserTelemetry
+| project PseudonymizedId=hash_sha256(binary_xor(UserId, salt)),
+    Timestamp, Feature

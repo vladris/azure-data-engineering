@@ -1,0 +1,2 @@
+UserTelemetry
+| project PseudonymizedId=hash_sha256(UserId), Timestamp, Feature

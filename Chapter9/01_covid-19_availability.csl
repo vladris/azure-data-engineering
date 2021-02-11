@@ -1,0 +1,3 @@
+Covid19
+| where updated == datetime(2020-02-29)
+| take 1

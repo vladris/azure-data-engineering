@@ -1,0 +1,5 @@
+Covid19CompletenessWW(datetime(2020-02-29))
+// Should return false
+
+Covid19CompletenessWW(datetime(2020-06-01))
+// Should return true

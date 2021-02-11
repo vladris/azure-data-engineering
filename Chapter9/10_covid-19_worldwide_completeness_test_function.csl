@@ -1,0 +1,6 @@
+.create-or-alter function Covid19CompletenessWW(testDate: datetime) {
+    Covid19
+    | where updated == testDate
+    | distinct country_region
+    | summarize Result = count() >= 200
+}

@@ -1,0 +1,27 @@
+{
+    "name": "test3am",
+    "properties": {
+        "annotations": [],
+        "runtimeState": "Started",
+        "pipelines": [
+            {
+                "pipelineReference": {
+                    "referenceName": "testcovid19data",
+                    "type": "PipelineReference"
+                },
+                "parameters": {
+                    "testDate": "@{formatDateTime(utcnow(), 'yyyy-MM-dd')}"
+                }
+            }
+        ],
+        "type": "ScheduleTrigger",
+        "typeProperties": {
+            "recurrence": {
+                "frequency": "Day",
+                "interval": 1,
+                "startTime": "2020-06-01T18:30:00Z",
+                "timeZone": "UTC"
+            }
+        }
+    }
+}

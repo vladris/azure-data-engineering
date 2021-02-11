@@ -1,0 +1,12 @@
+{
+    "name": "TestResult",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "adx",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "AzureDataExplorerTable",
+        "schema": []
+    }
+}

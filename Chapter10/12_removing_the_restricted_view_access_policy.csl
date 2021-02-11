@@ -1,0 +1,1 @@
+.alter table UserProfiles policy restricted_view_access false

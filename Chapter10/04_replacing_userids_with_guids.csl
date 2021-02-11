@@ -1,0 +1,5 @@
+UserTelemetry
+| distinct UserId
+| extend RandomId=new_guid()
+| join kind=inner UserTelemetry on UserId
+| project-away UserId, UserId1

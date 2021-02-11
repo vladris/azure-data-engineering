@@ -1,0 +1,5 @@
+Covid19Availability(datetime(2020-02-29))
+// Should return true
+
+Covid19Availability(datetime(2030-01-01))
+// Should return false

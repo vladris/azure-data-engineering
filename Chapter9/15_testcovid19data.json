@@ -1,0 +1,76 @@
+{
+    "name": "testcovid19data",
+    "properties": {
+        "activities": [
+            {
+                "name": "Run availability test",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureDataExplorerSource",
+                        "query": "Covid19Availability(datetime('@{pipeline().parameters.testDate}'))",
+                        "queryTimeout": "00:10:00"
+                    },
+                    "dataset": {
+                        "referenceName": "TestResult",
+                        "type": "DatasetReference"
+                    }
+                }
+            },
+            {
+                "name": "Check result",
+                "type": "IfCondition",
+                "dependsOn": [
+                    {
+                        "activity": "Run availability test",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "expression": {
+                        "value": "@activity('Run availability test').output.firstRow.Result",
+                        "type": "Expression"
+                    },
+                    "ifFalseActivities": [
+                        {
+                            "name": "Fail pipeline",
+                            "type": "WebActivity",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "7.00:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "url": "https://fail",
+                                "method": "GET"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "testDate": {
+                "type": "string",
+                "defaultValue": "2020-01-01"
+            }
+        },
+        "annotations": []
+    }
+}

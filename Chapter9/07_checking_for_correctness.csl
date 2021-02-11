@@ -1,0 +1,5 @@
+Covid19Correctness(datetime(2020-02-29))
+// Should return true
+
+Covid19Correctness(datetime(2020-02-24))
+// Should return false

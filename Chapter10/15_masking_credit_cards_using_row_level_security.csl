@@ -1,0 +1,9 @@
+.create-or-alter function UserProfilesRLS() {
+    let canViewCreditCards = current_principal_is_member_of('aadgroup=<group ID>;<tenant ID>');
+    UserProfiles
+    | project CreditCard = iif(canViewCreditCards, CreditCard, "****")
+}
+
+.alter table UserProfiles
+  policy row_level_security enable 
+  "UserProfilesRLS"

@@ -1,0 +1,7 @@
+let curr = todouble(toscalar(Covid19
+| where updated == datetime(2020-06-01)
+| count));
+let prev = todouble(toscalar(Covid19
+| where updated == datetime(2020-05-31)
+| count));
+print abs(prev - curr) * 100 / ((prev + curr) / 2)    
