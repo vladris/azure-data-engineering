@@ -5,6 +5,7 @@ from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.runconfig import RunConfiguration
 from azureml.pipeline.core import Pipeline
 from azureml.pipeline.steps.python_script_step import PythonScriptStep
+import os
 
 tenant_id = '<your tenant ID>' 
 subscription_id = '<your Azure subscription GUID>'
