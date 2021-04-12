@@ -5,4 +5,4 @@ git checkout -b adf_publish
 
 git add *
 git commit -m "ADF deployment pipeline"
-git push
+git push --set-upstream origin adf_publish
