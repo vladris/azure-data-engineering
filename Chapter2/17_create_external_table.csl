@@ -2,5 +2,5 @@
     (UserId: long, Page: string, Timestamp: datetime)
 kind = blob
 dataformat = csv (
-    h@"https://<Account name>.blob.core.windows.net/fs1/PageViews;<Key>”
+    h@"https://<Account name>.blob.core.windows.net/fs1/PageViews;<Key>"
 )
