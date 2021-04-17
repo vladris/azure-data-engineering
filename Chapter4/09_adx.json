@@ -4,7 +4,10 @@
         "endpoint": "https://adx<use $suffix>.centralus.kusto.windows.net",
         "tenant": "<use $sp.tenant>",
         "servicePrincipalId": "<use $sp.appId>",
-        "servicePrincipalKey": "<use $sp.password>",
+        "servicePrincipalKey": {
+            "type": "SecureString",
+            "value": "<use $sp.password>"
+        },
         "database": "telemetry"
     }
 }
